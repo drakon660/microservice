@@ -1,0 +1,1 @@
+ docker build -f .\microservice\Dockerfile -t 'microservice:latest'  
