@@ -1,0 +1,20 @@
+version: '3'
+
+services:
+  microservice:
+    image: microservice 
+    ports:
+      - "7500:80"
+      - "7501:443"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=https://+:443;http://+:80
+      - ASPNETCORE_Kestrel__Certificates__Default__Password=crypticpassword
+      - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/microservice.pfx
+    volumes:
+      - ~/.aspnet/https:/https:ro
+    labels:
+      - traefik.http.routers.microservice.rule=Host(`microservice.docker.localhost`)
+      - traefik.http.routers.microservice.entrypoints=websecure
+      - traefik.http.routers.microservice.tls=true
+    
